@@ -175,9 +175,9 @@ app.post("/books/rating/:ratingId", async (req, res)=>{
     }
 })
 
-async function updatePublisherYear(publishId, updateData){
+async function updatePublisherYear(title, data){
     try{
-        const publishyear = await Books.findByIdAndUpdate(publishId, updateData, {new:true})
+        const publishyear = await Books.findOneAndUpdate({ title: title}, data, {new:true})
         return publishyear
     }catch(error){
         console.log(error)
