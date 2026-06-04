@@ -1,8 +1,14 @@
 const express = require("express")
 const app = express()
 
-const cors = require("cors")
-app.use(cors())
+const cors = require("cors");
+const corsOptions = {
+  origin: "*",
+  credentials: true,
+  optionSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 
 const {initializeDatabase} = require("./db/db.connect")
 const Books = require("./models/books.models")
@@ -67,7 +73,7 @@ app.get("/books", async (req, res)=>{
 
 async function findbytitle(titleName){
     try{
-        const title = await Books.findOne({ title: titleName})
+        const title = await Books.find({ title: titleName})
         return title
     }catch(error){
         console.log(error)
